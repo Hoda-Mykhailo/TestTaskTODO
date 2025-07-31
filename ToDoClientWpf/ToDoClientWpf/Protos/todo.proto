@@ -1,0 +1,16 @@
+syntax = "proto3";
+package todo;
+option csharp_namespace = "ToDoProto";
+
+message ToDoItem { int32 id = 1; string description = 2; bool completed = 3; }
+message AddRequest { string description = 1; }
+message AddResponse { ToDoItem item = 1; }
+message UpdateRequest { int32 id = 1; }
+message UpdateResponse { ToDoItem item = 1; }
+message Empty {}
+
+service ToDoService {
+  rpc AddItem(AddRequest) returns (AddResponse);
+  rpc UpdateStatus(UpdateRequest) returns (UpdateResponse);
+  rpc Subscribe(Empty) returns (stream ToDoItem);
+}
